@@ -12,7 +12,10 @@ public class ShowMessagePage {
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }
+
+    //todo поля объявляются до конструктора, перенеси его выше
     WebDriver driver;
+
     @FindBy (linkText = "Message List")
     private WebElement ListMsgButton;
 

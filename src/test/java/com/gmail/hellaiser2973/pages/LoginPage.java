@@ -33,11 +33,14 @@ public class LoginPage {
     public void inputPassword(String password) {
         passwordField.sendKeys(password);
     }
+
+    //todo названия методов не пишется с большой буквы
     public void Click() {
         loginButton.click();
     }
 
     public void isLoginPage() {
+        //todo название заголовка вынести в переменную
         Assert.assertEquals("Login", driver.getTitle());
     }
 }

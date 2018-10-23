@@ -18,15 +18,18 @@ public class MainPage {
 
     public WebDriver driver;
 
+    //todo плохой селектор, переделать
     @FindBy(xpath = "/html/body/div[3]/span/a")
     public WebElement logoutButton;
 
     @FindBy(linkText = "New Message")
     private WebElement newmsgButton;
 
+    //todo плохой селектор, переделать
     @FindBy(xpath = "/html/body/div[5]/div[1]/span/input")
     private WebElement ch_box_AllUsers;
     @FindBy(linkText = "Следующая страница")
+    //todo названия переменных с мал буквы - поправить везде
     private WebElement NextPage;
 
     @FindBy(xpath = "//tbody//tr[last()]/td[2]")
@@ -42,6 +45,7 @@ public class MainPage {
         newmsgButton.click();
     }
 
+    //todo тоже название метода переделать
     public void AllMessages() {
         ch_box_AllUsers.click();
     }
@@ -50,10 +54,14 @@ public class MainPage {
         Assert.assertEquals("Message List", driver.getTitle());
     }
 
+    //todo название метода должно содержать название действия
+    //например, openLastPage
     public void lastPage() {
-
+       //todo переделать метод
         for (; ; ) {
             try {
+                //todo название метода - последняя страница, а переходишь ты в нем не на последнюю, а на следующую
+                //todo сделай переход все-таки на последнюю
                 NextPage.click();
             } catch (NoSuchElementException e) {
                 break;
@@ -62,16 +70,20 @@ public class MainPage {
         }
     }
 
+    //todo дату ты должен передавать из теста, ведь в каждом тесте будут разные данные, переделай
+    // isDataCorrect(String head, String text)
     public void isDataCorrect() {
         Assert.assertEquals(CreateMsgPage.head, inpHeadline.getText());
         Assert.assertEquals(CreateMsgPage.txt, inpText.getText());
     }
 
+    //todo названия методов с мал буквы
     public void DeleteLastMsg() {
         WebElement dltButton = LastTd.findElement(By.linkText("Delete"));
         dltButton.click();
     }
 
+    //todo названия методов с мал буквы
     public void LogOut() {
         logoutButton.click();
     }

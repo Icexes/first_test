@@ -10,18 +10,23 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.UUID;
 
 public class CreateMsgPage {
+
     public CreateMsgPage(WebDriver driver) {
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }
+
     WebDriver driver;
     @FindBy (id ="headline")
     private WebElement headline;
+
     @FindBy (id ="text")
     private WebElement text;
+
     @FindBy (id = "create")
     private WebElement CreateButton;
 
+    //todo вот эти переменные не стоит сюда выносить, можно их оставить в методе, где они исп-ся
     public static String head, txt;
 
 
@@ -47,12 +52,10 @@ public class CreateMsgPage {
     }
 
      public void Click() {
-
         CreateButton.click();
     }
 
     public void isCreateMsgPage() {
-
         Assert.assertEquals("Create Message", driver.getTitle());
     }
 

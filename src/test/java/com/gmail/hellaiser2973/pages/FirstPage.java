@@ -14,11 +14,19 @@ public class FirstPage {
     }
     WebDriver driver;
     @FindBy (linkText = "qulixteachingsite.UserController")
-    private WebElement lnk;
+    private WebElement link;
 
-    public void Click() {
-        lnk.click();
+    //todo пускай методы, которые переключаются на другую страницу, ее и возвращают
+    //вот пример (он вместо метода Click)
+
+    public LoginPage openLoginPage() {
+        link.click();
+        return new LoginPage(driver);
     }
+
+    /*public void Click() {
+        link.click();
+    }*/
     public void isFirstPage() {
         Assert.assertEquals("Welcome to Grails", driver.getTitle());
     }
