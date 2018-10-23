@@ -14,7 +14,7 @@ public class LoginTest {
     public static LoginPage loginPage;
     public static MainPage mainPage;
     public static CreateMsgPage createMsgPage;
-    public static ShowMessage showMessage;
+    public static ShowMessagePage showMessagePage;
 
     @BeforeClass
     public static void setup() {
@@ -24,7 +24,7 @@ public class LoginTest {
         loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);
         createMsgPage = new CreateMsgPage(driver);
-        showMessage = new ShowMessage(driver);
+        showMessagePage = new ShowMessagePage(driver);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://localhost:8080/QulixTeachingSite/");
@@ -40,15 +40,22 @@ public class LoginTest {
         loginPage.Click();
         mainPage.isMainPage();
         mainPage.Click();
-        createMsgPage.inputHeadline("Alex");
-        createMsgPage.inputText("Go home");
+        createMsgPage.isCreateMsgPage();
+        createMsgPage.inputHeadline();
+        createMsgPage.inputText();
         createMsgPage.Click();
-        showMessage.Click();
+        showMessagePage.isShowMessagePage();
+        showMessagePage.Click();
         mainPage.AllMessages();
+        mainPage.lastPage();
+        mainPage.isDataCorrect();
     }
 
 
-
-
+    @AfterClass
+    public static void TheEnds() {
+        mainPage.DeleteLastMsg();
+        mainPage.LogOut();
+    }
     }
 

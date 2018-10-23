@@ -1,5 +1,6 @@
 package com.gmail.hellaiser2973.pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -20,13 +21,6 @@ public class FirstPage {
         lnk.click();
     }
     public void isFirstPage() {
-        try {
-            driver.findElement(By.linkText("qulixteachingsite.UserController"));
-
-        } catch (NoSuchElementException e) {
-            System.out.println("Login page is not opened");
-            driver.quit();
-            throw new RuntimeException(("Test ended with critical error"));
-        }
+        Assert.assertEquals("Welcome to Grails", driver.getTitle());
     }
 }
