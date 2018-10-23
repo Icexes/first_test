@@ -1,6 +1,6 @@
 package com.gmail.hellaiser2973.pages;
 
-import org.junit.AfterClass;
+
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
