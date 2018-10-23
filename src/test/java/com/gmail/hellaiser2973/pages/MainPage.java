@@ -51,7 +51,7 @@ public class MainPage {
     }
 
     public void lastPage() {
-//УУУУКРАИНА
+//УУУУКРАИНАА
         for (; ; ) {
             try {
                 NextPage.click();
