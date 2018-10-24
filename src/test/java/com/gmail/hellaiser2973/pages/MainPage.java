@@ -63,7 +63,7 @@ public class MainPage {
 
     public void openLastPage() {
         System.out.println(lastPage!=null);
-        if (lastPage!=null)
+        if (lastPage.isDisplayed())
         lastPage.click();
             }
 
@@ -86,6 +86,14 @@ public class MainPage {
     public void logOut() {
         logoutButton.click();
     }
+
+    public boolean isDisplayed() {
+        try {
+            nextPage.isDisplayed();
+        }
+        catch (NoSuchElementError e)
+    }
+
 }
 
 
