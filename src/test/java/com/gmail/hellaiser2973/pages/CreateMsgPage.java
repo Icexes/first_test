@@ -26,11 +26,8 @@ public class CreateMsgPage {
     @FindBy (id = "create")
     private WebElement CreateButton;
 
-    //todo вот эти переменные не стоит сюда выносить, можно их оставить в методе, где они исп-ся
-    public static String head, txt;
 
-
-    private static String getRandomString(int length)
+    public  String getRandomString(int length)
 
     {
         String randomStr = UUID.randomUUID().toString();
@@ -41,21 +38,15 @@ public class CreateMsgPage {
     }
 
 
-    public void inputHeadline() {
-        head = getRandomString(5);
+    public ShowMessagePage createMessage(String head, String txt) {
         headline.sendKeys(head);
-    }
-
-    public void inputText () {
-        txt = getRandomString(5);
         text.sendKeys(txt);
-    }
-
-     public void Click() {
         CreateButton.click();
+        return new ShowMessagePage(driver);
     }
 
-    public void isCreateMsgPage() {
+
+    public void isOpened() {
         Assert.assertEquals("Create Message", driver.getTitle());
     }
 

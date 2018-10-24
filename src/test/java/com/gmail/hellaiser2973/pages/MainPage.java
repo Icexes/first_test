@@ -18,19 +18,18 @@ public class MainPage {
 
     public WebDriver driver;
 
-    //todo плохой селектор, переделать
-    @FindBy(xpath = "/html/body/div[3]/span/a")
+    @FindBy(linkText = "Logout")
     public WebElement logoutButton;
 
     @FindBy(linkText = "New Message")
     private WebElement newmsgButton;
 
-    //todo плохой селектор, переделать
-    @FindBy(xpath = "/html/body/div[5]/div[1]/span/input")
+    @FindBy(css = "input[name='allUsers']")
     private WebElement ch_box_AllUsers;
+
     @FindBy(linkText = "Следующая страница")
     //todo названия переменных с мал буквы - поправить везде
-    private WebElement NextPage;
+    private WebElement nextPage;
 
     @FindBy(xpath = "//tbody//tr[last()]/td[2]")
     private WebElement inpHeadline;
@@ -39,52 +38,56 @@ public class MainPage {
     private WebElement inpText;
 
     @FindBy(xpath = "//tbody//tr[last()]/td")
-    private WebElement LastTd;
+    private WebElement lastTd;
 
-    public void Click() {
+    @FindBy(xpath = "//div[@class='paginateButtons']/a[last()-1]")
+    private WebElement lastPage;
+
+    public CreateMsgPage openCreateMsgPage() {
         newmsgButton.click();
+        return new CreateMsgPage(driver);
     }
 
     //todo тоже название метода переделать
-    public void AllMessages() {
+    public void openAllMessages() {
+
+        if (!ch_box_AllUsers.isSelected())
         ch_box_AllUsers.click();
     }
 
-    public void isMainPage() {
+    public void isOpened()
+    {
         Assert.assertEquals("Message List", driver.getTitle());
     }
 
-    //todo название метода должно содержать название действия
-    //например, openLastPage
-    public void lastPage() {
-       //todo переделать метод
-        for (; ; ) {
-            try {
-                //todo название метода - последняя страница, а переходишь ты в нем не на последнюю, а на следующую
-                //todo сделай переход все-таки на последнюю
-                NextPage.click();
-            } catch (NoSuchElementException e) {
-                break;
+
+    public void openLastPage() {
+        System.out.println(lastPage!=null);
+        if (lastPage!=null)
+        lastPage.click();
             }
 
-        }
+    public void isDataCorrect(String head, String text) {
+        Assert.assertEquals(head, inpHeadline.getText());
+        Assert.assertEquals(text, inpText.getText());
     }
 
-    //todo дату ты должен передавать из теста, ведь в каждом тесте будут разные данные, переделай
-    // isDataCorrect(String head, String text)
-    public void isDataCorrect() {
-        Assert.assertEquals(CreateMsgPage.head, inpHeadline.getText());
-        Assert.assertEquals(CreateMsgPage.txt, inpText.getText());
+    public void deleteLastMsg() {
+       WebElement dltButton = lastTd.findElement(By.linkText("Delete"));
+      dltButton.click();
     }
 
-    //todo названия методов с мал буквы
-    public void DeleteLastMsg() {
-        WebElement dltButton = LastTd.findElement(By.linkText("Delete"));
-        dltButton.click();
+    public void isMessageDelited(String head, String text) {
+        openLastPage();
+        Assert.assertNotEquals(head, inpHeadline.getText());
+        Assert.assertNotEquals(text,inpText.getText());
     }
 
-    //todo названия методов с мал буквы
-    public void LogOut() {
+    public void logOut() {
         logoutButton.click();
     }
 }
+
+
+
+//todo названия методов с мал буквы

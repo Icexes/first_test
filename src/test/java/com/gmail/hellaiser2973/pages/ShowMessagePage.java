@@ -8,22 +8,23 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class ShowMessagePage {
-    public ShowMessagePage(WebDriver driver) {
-        PageFactory.initElements(driver,this);
-        this.driver = driver;
-    }
-
-    //todo поля объявляются до конструктора, перенеси его выше
-    WebDriver driver;
 
     @FindBy (linkText = "Message List")
     private WebElement ListMsgButton;
 
-    public void Click() {
+    WebDriver driver;
+
+    public ShowMessagePage(WebDriver driver) {
+
+        PageFactory.initElements(driver,this);
+        this.driver = driver;
+    }
+
+    public void openMainPage() {
     ListMsgButton.click();
     }
 
-    public void isShowMessagePage() {
+    public void isOpened() {
         Assert.assertEquals("Show Message", driver.getTitle());
     }
 }

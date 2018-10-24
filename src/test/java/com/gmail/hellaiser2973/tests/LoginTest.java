@@ -1,4 +1,4 @@
-package com.gmail.hellaiser2973.tests;
+/*package com.gmail.hellaiser2973.tests;
 import com.gmail.hellaiser2973.pages.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginTest {
     public static WebDriver driver;
-    public static FirstPage firstPage;
+    public static StartPage firstPage;
     //public static LoginPage loginPage;
     public static MainPage mainPage;
     public static CreateMsgPage createMsgPage;
@@ -18,11 +18,11 @@ public class LoginTest {
 
     @BeforeClass
     //todo переименуй метод в beforeClass
-    public static void setup() {
+    public static void beforeClass() {
         //todo не стоит инициализировать все страницы перед тестом, лучше непосредственно перед использованием
         System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
         driver = new ChromeDriver();
-        firstPage = new FirstPage(driver);
+        firstPage = new StartPage(driver);
         //loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);
         createMsgPage = new CreateMsgPage(driver);
@@ -62,10 +62,11 @@ public class LoginTest {
 
     @AfterClass
     //todo переименуй метод в afterClass
-    public static void TheEnds() {
+    public static void afterClass() {
         //todo после делита проверь, что из таблички действительно пропала такая запись
         mainPage.DeleteLastMsg();
         mainPage.LogOut();
     }
     }
 
+*/

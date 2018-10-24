@@ -9,11 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
 
-    public LoginPage(WebDriver driver) {
-        PageFactory.initElements(driver,this);
-        this.driver = driver;
-    }
-      WebDriver driver;
+    WebDriver driver;
 
     @FindBy(id ="login")
     private WebElement loginField;
@@ -24,22 +20,20 @@ public class LoginPage {
     @FindBy(className = "save")
     private WebElement loginButton;
 
+    public LoginPage(WebDriver driver) {
+        PageFactory.initElements(driver,this);
+        this.driver = driver;
+    }
 
-
-    public void inputLogin(String login) {
+    public MainPage login(String login, String password) {
         loginField.sendKeys(login);
-    }
-
-    public void inputPassword(String password) {
         passwordField.sendKeys(password);
-    }
-
-    //todo названия методов не пишется с большой буквы
-    public void Click() {
         loginButton.click();
+        return new MainPage(driver);
+
     }
 
-    public void isLoginPage() {
+    public void isOpened() {
         //todo название заголовка вынести в переменную
         Assert.assertEquals("Login", driver.getTitle());
     }
