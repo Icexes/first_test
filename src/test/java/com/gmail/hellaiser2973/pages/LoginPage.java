@@ -1,7 +1,5 @@
 package com.gmail.hellaiser2973.pages;
-
 import org.junit.Assert;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,12 +20,14 @@ public class LoginPage {
     @FindBy(className = "save")
     private WebElement loginButton;
 
-    public LoginPage(WebDriver driver) {
+    public LoginPage(WebDriver driver)
+    {
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }
 
-    public MainPage login(String login, String password) {
+    public MainPage login(String login, String password)
+    {
         loginField.sendKeys(login);
         passwordField.sendKeys(password);
         loginButton.click();
@@ -35,8 +35,8 @@ public class LoginPage {
 
     }
 
-    public void isOpened() {
-        //todo название заголовка вынести в переменную
+    public void isOpened()
+    {
         Assert.assertEquals(title, driver.getTitle());
     }
 }

@@ -1,7 +1,5 @@
 package com.gmail.hellaiser2973.pages;
-
 import org.junit.Assert;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,16 +9,19 @@ public class StartPage {
 
     String title = "Welcome to Grails";
 
-    public StartPage(WebDriver driver) {
-        PageFactory.initElements(driver,this);
-        this.driver = driver;
-    }
     WebDriver driver;
 
     @FindBy (linkText = "qulixteachingsite.UserController")
     private WebElement link;
 
-    public LoginPage openLoginPage() {
+    public StartPage(WebDriver driver)
+    {
+        PageFactory.initElements(driver,this);
+        this.driver = driver;
+    }
+
+    public LoginPage openLoginPage()
+    {
         link.click();
         return new LoginPage(driver);
     }

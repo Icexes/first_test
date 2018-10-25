@@ -1,12 +1,9 @@
 package com.gmail.hellaiser2973.pages;
-
 import org.junit.Assert;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import java.util.UUID;
 
 public class CreateMsgPage {
@@ -24,13 +21,13 @@ public class CreateMsgPage {
     @FindBy (id = "create")
     private WebElement CreateButton;
 
-    public CreateMsgPage(WebDriver driver) {
+    public CreateMsgPage(WebDriver driver)
+    {
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }
 
     public  String getRandomString(int length)
-
     {
         String randomStr = UUID.randomUUID().toString();
         while(randomStr.length() < length) {
@@ -39,15 +36,16 @@ public class CreateMsgPage {
         return randomStr.substring(0, length);
     }
 
-    public ShowMessagePage createMessage(String head, String txt) {
+    public ShowMessagePage createMessage(String head, String txt)
+    {
         headline.sendKeys(head);
         text.sendKeys(txt);
         CreateButton.click();
         return new ShowMessagePage(driver);
     }
 
-    public void isOpened() {
-
+    public void isOpened()
+    {
         Assert.assertEquals(title, driver.getTitle());
     }
 }

@@ -40,19 +40,20 @@ public class MainPage {
     @FindBy(xpath = "//div[@class='paginateButtons']/a[last()-1]")
     private WebElement lastPage;
 
-    public MainPage(WebDriver driver) {
+    public MainPage(WebDriver driver)
+    {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
-    public CreateMsgPage openCreateMsgPage() {
+    public CreateMsgPage openCreateMsgPage()
+    {
         newmsgButton.click();
         return new CreateMsgPage(driver);
     }
 
-    //todo тоже название метода переделать
-    public void openAllMessages() {
-
+    public void openAllMessages()
+    {
         if (!ch_box_AllUsers.isSelected())
         ch_box_AllUsers.click();
     }
@@ -62,30 +63,33 @@ public class MainPage {
         Assert.assertEquals(title, driver.getTitle());
     }
 
-
-    public void openLastPage() {
+    public void openLastPage()
+    {
         if (isDisplayed())
         lastPage.click();
-            }
+    }
 
-    public void isDataCorrect(String head, String text) {
+    public void isDataCorrect(String head, String text)
+    {
         Assert.assertEquals(head, inpHeadline.getText());
         Assert.assertEquals(text, inpText.getText());
     }
 
-    public void deleteLastMsg() {
-       WebElement dltButton = lastTd.findElement(By.linkText("Delete"));
-      dltButton.click();
+    public void deleteLastMsg()
+    {
+        WebElement dltButton = lastTd.findElement(By.linkText("Delete"));
+        dltButton.click();
     }
 
-    public void isMessageDelited(String head, String text) {
+    public void isMessageDelited(String head, String text)
+    {
         openLastPage();
         Assert.assertNotEquals(head, inpHeadline.getText());
         Assert.assertNotEquals(text,inpText.getText());
     }
 
-    public void logOut() {
-
+    public void logOut()
+    {
         logoutButton.click();
     }
 
@@ -98,5 +102,4 @@ public class MainPage {
         }
         return true;
     }
-
 }
