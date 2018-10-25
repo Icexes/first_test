@@ -9,10 +9,8 @@ public class ShowMessagePage {
 
     String title = "Show Message";
 
-    //todo переписать локатор
-    @FindBy (linkText = "Message List")
-    //todo с мал буквы
-    private WebElement ListMsgButton;
+    @FindBy (css = "a.list")
+    private WebElement listMsgButton;
 
     WebDriver driver;
 
@@ -24,7 +22,7 @@ public class ShowMessagePage {
 
     public void openMainPage()
     {
-        ListMsgButton.click();
+        listMsgButton.click();
     }
 
     public void isOpened()

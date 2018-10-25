@@ -19,17 +19,14 @@ public class CreateMsgPage {
     private WebElement text;
 
     @FindBy (id = "create")
-    //todo имя с мал буквы
-    private WebElement CreateButton;
+    private WebElement createButton;
 
-    public CreateMsgPage(WebDriver driver)
-    {
+    public CreateMsgPage(WebDriver driver) {
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }
 
-    public  String getRandomString(int length)
-    {
+    public  String getRandomString(int length) {
         String randomStr = UUID.randomUUID().toString();
         while(randomStr.length() < length) {
             randomStr += UUID.randomUUID().toString();
@@ -37,18 +34,14 @@ public class CreateMsgPage {
         return randomStr.substring(0, length);
     }
 
-    public ShowMessagePage createMessage(String head, String txt)
-            //todo вот эта скобка ниже не переносится, она должна быть в одной строке с названием класса
-    {
+    public ShowMessagePage createMessage(String head, String txt) {
         headline.sendKeys(head);
         text.sendKeys(txt);
-        CreateButton.click();
+        createButton.click();
         return new ShowMessagePage(driver);
     }
 
-    public void isOpened()
-            //todo вот эта скобка ниже не переносится, она должна быть в одной строке с названием класса
-    {
+    public void isOpened() {
         Assert.assertEquals(title, driver.getTitle());
     }
 }

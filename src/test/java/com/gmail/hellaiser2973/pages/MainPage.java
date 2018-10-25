@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 
 public class MainPage {
 
@@ -15,19 +17,19 @@ public class MainPage {
 
     public WebDriver driver;
 
-    //todo переписать локатор на xpath или css (css в приоритете, если не получается - xpath)
-    @FindBy(linkText = "Logout")
+
+    @FindBy(css = "a[href*='logout']")
     public WebElement logoutButton;
 
-    //todo переписать локатор на xpath или css (css в приоритете, если не получается - xpath)
-    @FindBy(linkText = "New Message")
+
+    @FindBy(css = "a.create")
     private WebElement newmsgButton;
 
     @FindBy(css = "input[name='allUsers']")
     private WebElement ch_box_AllUsers;
 
-    //todo переписать локатор на xpath или css (css в приоритете, если не получается - xpath)
-    @FindBy(linkText = "Следующая страница")
+
+    @FindBy(css = "a.nextLink")
     private WebElement nextPage;
 
     @FindBy(xpath = "//tbody//tr[last()]/td[2]")
@@ -66,7 +68,7 @@ public class MainPage {
 
     public void openLastPage()
     {
-        if (isDisplayed())
+        if (isNextPageButtonDisplayed())
         lastPage.click();
     }
 
@@ -82,8 +84,8 @@ public class MainPage {
         dltButton.click();
     }
 
-    //todo ошибка в названии, такого быть не должно
-    public void isMessageDelited(String head, String text)
+
+    public void isMessageDeleted(String head, String text)
     {
         openLastPage();
         Assert.assertNotEquals(head, inpHeadline.getText());
@@ -95,8 +97,8 @@ public class MainPage {
         logoutButton.click();
     }
 
-    //todo поменяй имя метода, из него непонятно, что должно отображаться
-    public boolean isDisplayed() {
+
+    public boolean isNextPageButtonDisplayed() {
         try {
             nextPage.isDisplayed();
         }
@@ -104,5 +106,10 @@ public class MainPage {
             return false;
         }
         return true;
+    }
+
+
+    public void Test() {
+        List<WebElement> links = driver.findElements(by css)
     }
 }

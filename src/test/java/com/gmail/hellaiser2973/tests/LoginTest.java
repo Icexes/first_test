@@ -13,14 +13,12 @@ public class LoginTest {
 
     //todo почему они static? тут не static, а кое что другое. подумай
     static String head;
-    //todo лучше не сокращай так название, т.к txt - есть такое расширение. из названий должно быть логически понятно, что у тебя значит переменная
-    static String txt;
+    static String text;
 
     @BeforeClass
-    public static void beforeClass()
-    {
-        //todo помести драйвер в папку проекта, в подпапку resources, чтобы его можно было запускать не только у тебя на компе
-        System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
+    public static void beforeClass() {
+
+        System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
         startPage = new StartPage(driver);
         driver.manage().window().maximize();
@@ -42,23 +40,22 @@ public class LoginTest {
         createMsgPage.isOpened();
 
         head = createMsgPage.getRandomString(5);
-        txt = createMsgPage.getRandomString(6);
+        text = createMsgPage.getRandomString(6);
 
-        ShowMessagePage showMessagePage = createMsgPage.createMessage(head,txt);
+        ShowMessagePage showMessagePage = createMsgPage.createMessage(head, text);
         showMessagePage.isOpened();
         showMessagePage.openMainPage();
         mainPage.isOpened();
         mainPage.openAllMessages();
         mainPage.openLastPage();
-        mainPage.isDataCorrect(head,txt);
+        mainPage.isDataCorrect(head, text);
     }
 
     @AfterClass
-    public static void afterClass()
-    {
+    public static void afterClass() {
         MainPage mainPage = new MainPage(driver);
         mainPage.deleteLastMsg();
-        mainPage.isMessageDelited(head,txt);
+        mainPage.isMessageDeleted(head, text);
         mainPage.logOut();
     }
 }

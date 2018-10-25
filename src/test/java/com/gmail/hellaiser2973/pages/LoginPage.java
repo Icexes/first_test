@@ -20,8 +20,7 @@ public class LoginPage {
     @FindBy(className = "save")
     private WebElement loginButton;
 
-    public LoginPage(WebDriver driver)
-    {
+    public LoginPage(WebDriver driver) {
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }
@@ -35,8 +34,7 @@ public class LoginPage {
 
     }
 
-    public void isOpened()
-    {
+    public void isOpened() {
         Assert.assertEquals(title, driver.getTitle());
     }
 }
