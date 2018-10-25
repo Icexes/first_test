@@ -8,6 +8,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class StartPage {
+
+    String title = "Welcome to Grails";
+
     public StartPage(WebDriver driver) {
         PageFactory.initElements(driver,this);
         this.driver = driver;
@@ -24,6 +27,6 @@ public class StartPage {
 
     public void isOpened()
     {
-        Assert.assertEquals("Welcome to Grails", driver.getTitle());
+        Assert.assertEquals(title, driver.getTitle());
     }
 }

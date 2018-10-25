@@ -11,10 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class MainPage {
 
-    public MainPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
-    }
+    String title = "Message List";
 
     public WebDriver driver;
 
@@ -28,7 +25,7 @@ public class MainPage {
     private WebElement ch_box_AllUsers;
 
     @FindBy(linkText = "Следующая страница")
-    //todo названия переменных с мал буквы - поправить везде
+
     private WebElement nextPage;
 
     @FindBy(xpath = "//tbody//tr[last()]/td[2]")
@@ -42,6 +39,11 @@ public class MainPage {
 
     @FindBy(xpath = "//div[@class='paginateButtons']/a[last()-1]")
     private WebElement lastPage;
+
+    public MainPage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+        this.driver = driver;
+    }
 
     public CreateMsgPage openCreateMsgPage() {
         newmsgButton.click();
@@ -57,13 +59,12 @@ public class MainPage {
 
     public void isOpened()
     {
-        Assert.assertEquals("Message List", driver.getTitle());
+        Assert.assertEquals(title, driver.getTitle());
     }
 
 
     public void openLastPage() {
-        System.out.println(lastPage!=null);
-        if (lastPage.isDisplayed())
+        if (isDisplayed())
         lastPage.click();
             }
 
@@ -84,6 +85,7 @@ public class MainPage {
     }
 
     public void logOut() {
+
         logoutButton.click();
     }
 
@@ -91,11 +93,10 @@ public class MainPage {
         try {
             nextPage.isDisplayed();
         }
-        catch (NoSuchElementError e)
+        catch (NoSuchElementException e) {
+            return false;
+        }
+        return true;
     }
 
 }
-
-
-
-//todo названия методов с мал буквы

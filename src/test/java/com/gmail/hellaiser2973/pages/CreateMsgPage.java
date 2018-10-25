@@ -11,12 +11,10 @@ import java.util.UUID;
 
 public class CreateMsgPage {
 
-    public CreateMsgPage(WebDriver driver) {
-        PageFactory.initElements(driver,this);
-        this.driver = driver;
-    }
+    String title = "Create Message";
 
     WebDriver driver;
+
     @FindBy (id ="headline")
     private WebElement headline;
 
@@ -26,6 +24,10 @@ public class CreateMsgPage {
     @FindBy (id = "create")
     private WebElement CreateButton;
 
+    public CreateMsgPage(WebDriver driver) {
+        PageFactory.initElements(driver,this);
+        this.driver = driver;
+    }
 
     public  String getRandomString(int length)
 
@@ -37,7 +39,6 @@ public class CreateMsgPage {
         return randomStr.substring(0, length);
     }
 
-
     public ShowMessagePage createMessage(String head, String txt) {
         headline.sendKeys(head);
         text.sendKeys(txt);
@@ -45,9 +46,8 @@ public class CreateMsgPage {
         return new ShowMessagePage(driver);
     }
 
-
     public void isOpened() {
-        Assert.assertEquals("Create Message", driver.getTitle());
-    }
 
+        Assert.assertEquals(title, driver.getTitle());
+    }
 }

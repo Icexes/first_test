@@ -9,6 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
 
+    String title = "Login";
+
     WebDriver driver;
 
     @FindBy(id ="login")
@@ -35,6 +37,6 @@ public class LoginPage {
 
     public void isOpened() {
         //todo название заголовка вынести в переменную
-        Assert.assertEquals("Login", driver.getTitle());
+        Assert.assertEquals(title, driver.getTitle());
     }
 }

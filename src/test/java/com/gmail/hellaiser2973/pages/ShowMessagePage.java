@@ -9,6 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ShowMessagePage {
 
+    String title = "Show Message";
+
     @FindBy (linkText = "Message List")
     private WebElement ListMsgButton;
 
@@ -20,12 +22,14 @@ public class ShowMessagePage {
         this.driver = driver;
     }
 
-    public void openMainPage() {
+    public void openMainPage()
+    {
     ListMsgButton.click();
     }
 
     public void isOpened() {
-        Assert.assertEquals("Show Message", driver.getTitle());
+
+        Assert.assertEquals(title, driver.getTitle());
     }
 }
 
