@@ -15,17 +15,19 @@ public class MainPage {
 
     public WebDriver driver;
 
+    //todo переписать локатор на xpath или css (css в приоритете, если не получается - xpath)
     @FindBy(linkText = "Logout")
     public WebElement logoutButton;
 
+    //todo переписать локатор на xpath или css (css в приоритете, если не получается - xpath)
     @FindBy(linkText = "New Message")
     private WebElement newmsgButton;
 
     @FindBy(css = "input[name='allUsers']")
     private WebElement ch_box_AllUsers;
 
+    //todo переписать локатор на xpath или css (css в приоритете, если не получается - xpath)
     @FindBy(linkText = "Следующая страница")
-
     private WebElement nextPage;
 
     @FindBy(xpath = "//tbody//tr[last()]/td[2]")
@@ -40,8 +42,7 @@ public class MainPage {
     @FindBy(xpath = "//div[@class='paginateButtons']/a[last()-1]")
     private WebElement lastPage;
 
-    public MainPage(WebDriver driver)
-    {
+    public MainPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
@@ -81,6 +82,7 @@ public class MainPage {
         dltButton.click();
     }
 
+    //todo ошибка в названии, такого быть не должно
     public void isMessageDelited(String head, String text)
     {
         openLastPage();
@@ -93,6 +95,7 @@ public class MainPage {
         logoutButton.click();
     }
 
+    //todo поменяй имя метода, из него непонятно, что должно отображаться
     public boolean isDisplayed() {
         try {
             nextPage.isDisplayed();

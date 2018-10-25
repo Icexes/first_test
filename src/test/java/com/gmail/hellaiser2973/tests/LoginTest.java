@@ -10,12 +10,16 @@ import java.util.concurrent.TimeUnit;
 public class LoginTest {
     public static WebDriver driver;
     public static StartPage startPage;
+
+    //todo почему они static? тут не static, а кое что другое. подумай
     static String head;
+    //todo лучше не сокращай так название, т.к txt - есть такое расширение. из названий должно быть логически понятно, что у тебя значит переменная
     static String txt;
 
     @BeforeClass
     public static void beforeClass()
     {
+        //todo помести драйвер в папку проекта, в подпапку resources, чтобы его можно было запускать не только у тебя на компе
         System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
         driver = new ChromeDriver();
         startPage = new StartPage(driver);
@@ -26,17 +30,20 @@ public class LoginTest {
     }
 
     @Test
-    public  void LoginTest()
-    {
+    public  void LoginTest() {
+
         String login ="admin", password = "password";
+
         LoginPage loginPage = startPage.openLoginPage();
         loginPage.isOpened();
         MainPage mainPage = loginPage.login(login,password);
         mainPage.isOpened();
         CreateMsgPage createMsgPage = mainPage.openCreateMsgPage();
         createMsgPage.isOpened();
-        head = createMsgPage.getRandomString(5) ;
+
+        head = createMsgPage.getRandomString(5);
         txt = createMsgPage.getRandomString(6);
+
         ShowMessagePage showMessagePage = createMsgPage.createMessage(head,txt);
         showMessagePage.isOpened();
         showMessagePage.openMainPage();

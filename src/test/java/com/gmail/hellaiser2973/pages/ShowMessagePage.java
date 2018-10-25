@@ -9,7 +9,9 @@ public class ShowMessagePage {
 
     String title = "Show Message";
 
+    //todo переписать локатор
     @FindBy (linkText = "Message List")
+    //todo с мал буквы
     private WebElement ListMsgButton;
 
     WebDriver driver;

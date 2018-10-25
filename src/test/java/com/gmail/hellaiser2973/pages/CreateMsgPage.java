@@ -19,6 +19,7 @@ public class CreateMsgPage {
     private WebElement text;
 
     @FindBy (id = "create")
+    //todo имя с мал буквы
     private WebElement CreateButton;
 
     public CreateMsgPage(WebDriver driver)
@@ -37,6 +38,7 @@ public class CreateMsgPage {
     }
 
     public ShowMessagePage createMessage(String head, String txt)
+            //todo вот эта скобка ниже не переносится, она должна быть в одной строке с названием класса
     {
         headline.sendKeys(head);
         text.sendKeys(txt);
@@ -45,6 +47,7 @@ public class CreateMsgPage {
     }
 
     public void isOpened()
+            //todo вот эта скобка ниже не переносится, она должна быть в одной строке с названием класса
     {
         Assert.assertEquals(title, driver.getTitle());
     }
