@@ -109,7 +109,20 @@ public class MainPage {
     }
 
 
-    public void Test() {
-        List<WebElement> links = driver.findElements(by css)
-    }
-}
+    public boolean Test(String head, String text) {
+        List<WebElement> allHeadlines = driver.findElements(By.cssSelector("tbody tr td{2]"));
+        List<WebElement> allTexts = driver.findElements((By.cssSelector("tbody tr td{3]")));
+        int count = 0;
+        for (WebElement column : allHeadlines) {
+            if (column.getText()==head) {
+                if (allTexts.get(count).getText()==text)
+                    return true;
+            }
+            count++;
+            }
+            return false;
+        }
+
+        }
+
+
