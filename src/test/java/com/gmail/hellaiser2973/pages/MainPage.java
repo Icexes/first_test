@@ -13,6 +13,8 @@ import java.util.List;
 
 public class MainPage {
 
+    static int numbOfRecord;                    //Переменная, указывающая номер введенной записи в таблице. Статик т.к. используется в разных методах, нужно текущее значение
+
     String title = "Message List";
 
     public WebDriver driver;
@@ -21,13 +23,11 @@ public class MainPage {
     @FindBy(css = "a[href*='logout']")
     public WebElement logoutButton;
 
-
     @FindBy(css = "a.create")
     private WebElement newmsgButton;
 
     @FindBy(css = "input[name='allUsers']")
     private WebElement ch_box_AllUsers;
-
 
     @FindBy(css = "a.nextLink")
     private WebElement nextPage;
@@ -38,13 +38,15 @@ public class MainPage {
     @FindBy(xpath = "//tbody//tr[last()]/td[3]")
     private WebElement inpText;
 
-    @FindBy(xpath = "//tbody//tr[last()]/td")
-    private WebElement lastTd;
-
     @FindBy(xpath = "//div[@class='paginateButtons']/a[last()-1]")
     private WebElement lastPage;
 
+    @FindBy (css = "a.step")
+    private WebElement pageButton;
+
+
     public MainPage(WebDriver driver) {
+
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
@@ -66,41 +68,13 @@ public class MainPage {
         Assert.assertEquals(title, driver.getTitle());
     }
 
-    public void openLastPage()
-    {
-        if (isNextPageButtonDisplayed())
-        lastPage.click();
+    public void isMessageEntered(String head, String text) {
+        Assert.assertEquals(true, findMessage(head,text));
     }
 
-    public void isDataCorrect(String head, String text)
-    {
-        Assert.assertEquals(head, inpHeadline.getText());
-        Assert.assertEquals(text, inpText.getText());
-    }
-
-    public void deleteLastMsg()
-    {
-        WebElement dltButton = lastTd.findElement(By.linkText("Delete"));
-        dltButton.click();
-    }
-
-
-    public void isMessageDeleted(String head, String text)
-    {
-        openLastPage();
-        Assert.assertNotEquals(head, inpHeadline.getText());
-        Assert.assertNotEquals(text,inpText.getText());
-    }
-
-    public void logOut()
-    {
-        logoutButton.click();
-    }
-
-
-    public boolean isNextPageButtonDisplayed() {
+    public boolean isPageButtonDisplayed() {    //метод помогает определить кол-во страниц в табл: 1 или более.
         try {
-            nextPage.isDisplayed();
+            pageButton.isDisplayed();
         }
         catch (NoSuchElementException e) {
             return false;
@@ -108,21 +82,52 @@ public class MainPage {
         return true;
     }
 
+    public boolean findMessage(String head, String text) {
 
-    public boolean Test(String head, String text) {
-        List<WebElement> allHeadlines = driver.findElements(By.cssSelector("tbody tr td{2]"));
-        List<WebElement> allTexts = driver.findElements((By.cssSelector("tbody tr td{3]")));
-        int count = 0;
-        for (WebElement column : allHeadlines) {
-            if (column.getText()==head) {
-                if (allTexts.get(count).getText()==text)
-                    return true;
-            }
-            count++;
-            }
-            return false;
-        }
+        int curRecord;  //текущее поле в таблице
+        int numOfPages; //текущая страница
 
+        if (isPageButtonDisplayed())       // если кнопки номера страницы есть, значит берем посл. номер страницы
+                numOfPages = Integer.parseInt(lastPage.getText());
+        else numOfPages = 1;
+
+        for (int i = 1; i <= numOfPages; i++) {
+              curRecord = 0;
+              List<WebElement> allHeadlines = driver.findElements(By.cssSelector(" tr td:nth-child(2)"));
+              List<WebElement> allText = driver.findElements((By.cssSelector("tr td:nth-child(3)")));
+            for (WebElement column : allHeadlines) {
+                System.out.println(allText.get(curRecord).getText());
+
+                if (column.getText().equals(head)) {
+                    if (allText.get(curRecord).getText().equals(text))
+                        System.out.println(head);
+                        MainPage.numbOfRecord = curRecord+1;
+                        return true;
+                }
+                curRecord++;
+            }
+              if (i!=numOfPages)
+            nextPage.click();
         }
+        return false;
+    }
+
+    public void deleteLastMsg()
+    {
+        String a = "//tbody/tr[" + MainPage.numbOfRecord + "]/td";
+        WebElement dltButton = driver.findElement(By.xpath(a)).findElement(By.linkText("Delete"));
+        dltButton.click();
+    }
+
+    public void isMessageDeleted(String head, String text) {
+        Assert.assertEquals(false, findMessage(head,text));
+    }
+
+    public void logOut()
+    {
+        logoutButton.click();
+    }
+
+}
 
 

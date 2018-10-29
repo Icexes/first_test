@@ -11,7 +11,6 @@ public class LoginTest {
     public static WebDriver driver;
     public static StartPage startPage;
 
-    //todo почему они static? тут не static, а кое что другое. подумай
     static String head;
     static String text;
 
@@ -31,30 +30,31 @@ public class LoginTest {
     public  void LoginTest() {
 
         String login ="admin", password = "password";
-
         LoginPage loginPage = startPage.openLoginPage();
         loginPage.isOpened();
+
         MainPage mainPage = loginPage.login(login,password);
         mainPage.isOpened();
+
         CreateMsgPage createMsgPage = mainPage.openCreateMsgPage();
         createMsgPage.isOpened();
-
         head = createMsgPage.getRandomString(5);
         text = createMsgPage.getRandomString(6);
 
         ShowMessagePage showMessagePage = createMsgPage.createMessage(head, text);
         showMessagePage.isOpened();
         showMessagePage.openMainPage();
+
         mainPage.isOpened();
         mainPage.openAllMessages();
-        mainPage.openLastPage();
-        mainPage.isDataCorrect(head, text);
+        mainPage.isMessageEntered(head,text);
+
     }
 
     @AfterClass
     public static void afterClass() {
-        MainPage mainPage = new MainPage(driver);
-        mainPage.deleteLastMsg();
+      MainPage mainPage = new MainPage(driver);
+       mainPage.deleteLastMsg();
         mainPage.isMessageDeleted(head, text);
         mainPage.logOut();
     }
