@@ -68,11 +68,13 @@ public class MainPage {
         Assert.assertEquals(title, driver.getTitle());
     }
 
+    //todo подумать над названием метода
     public void isMessageEntered(String head, String text) {
         Assert.assertEquals(true, findMessage(head,text));
     }
 
     public boolean isPageButtonDisplayed() {    //метод помогает определить кол-во страниц в табл: 1 или более.
+        //todo не стоит вставлять лишнюю обработку исключений, переделай без нее, она тут не нужна
         try {
             pageButton.isDisplayed();
         }
@@ -83,16 +85,18 @@ public class MainPage {
     }
 
     public boolean findMessage(String head, String text) {
-
+        //todo переделай название этих 2ух переменных, в англ версии не понятно, что обозначают
         int curRecord;  //текущее поле в таблице
         int numOfPages; //текущая страница
 
         if (isPageButtonDisplayed())       // если кнопки номера страницы есть, значит берем посл. номер страницы
+            //todo следи за выравниванием строк, лишние пробелы
                 numOfPages = Integer.parseInt(lastPage.getText());
         else numOfPages = 1;
 
         for (int i = 1; i <= numOfPages; i++) {
-              curRecord = 0;
+            //todo следи за выравниваем
+            curRecord = 0;                                                      //todo  а пробел точно нужен в начале селектора?
               List<WebElement> allHeadlines = driver.findElements(By.cssSelector(" tr td:nth-child(2)"));
               List<WebElement> allText = driver.findElements((By.cssSelector("tr td:nth-child(3)")));
             for (WebElement column : allHeadlines) {
@@ -111,7 +115,7 @@ public class MainPage {
         }
         return false;
     }
-
+    //todo что я говорила по поводу скобок
     public void deleteLastMsg()
     {
         String a = "//tbody/tr[" + MainPage.numbOfRecord + "]/td";
