@@ -16,7 +16,6 @@ public class LoginTest {
 
     @BeforeClass
     public static void beforeClass() {
-
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
         startPage = new StartPage(driver);
@@ -28,12 +27,12 @@ public class LoginTest {
 
     @Test
     public  void LoginTest() {
-
         String login ="admin", password = "password";
+
         LoginPage loginPage = startPage.openLoginPage();
         loginPage.isOpened();
 
-        MainPage mainPage = loginPage.login(login,password);
+        MainPage mainPage = loginPage.logIn(login, password);
         mainPage.isOpened();
 
         CreateMsgPage createMsgPage = mainPage.openCreateMsgPage();
@@ -47,13 +46,20 @@ public class LoginTest {
 
         mainPage.isOpened();
         mainPage.openAllMessages();
+        //todo не забывай про синтаксис, в скобках нужен пробел после запятой
         mainPage.isMessageEntered(head,text);
+
+        //todo задание
+        //1. Добавить класс BasePage, который будет содержать общие для всех страниц элементы
+        //2. Добавить класс AbstractTest и вынести в него то, что используется (или предполагается исп-ся) несколькими/всеми тестами
+        //3. Добавить xml файлик, который будет содержать логины и пароли пользователей. Брать логин / пароль для пользователя из него
 
     }
 
     @AfterClass
     public static void afterClass() {
       MainPage mainPage = new MainPage(driver);
+      //todo что за лесенка ?
        mainPage.deleteLastMsg();
         mainPage.isMessageDeleted(head, text);
         mainPage.logOut();

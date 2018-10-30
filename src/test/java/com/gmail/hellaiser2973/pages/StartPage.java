@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class StartPage {
-
+    //todo модификатор
     String title = "Welcome to Grails";
 
     WebDriver driver;

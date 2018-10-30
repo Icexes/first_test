@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public class CreateMsgPage {
 
+    //todo добавить модификатор
     String title = "Create Message";
 
     WebDriver driver;
@@ -35,6 +36,7 @@ public class CreateMsgPage {
     }
 
     public ShowMessagePage createMessage(String head, String txt) {
+        //todo лучше поля дополнительно очищать перед вводом
         headline.sendKeys(head);
         text.sendKeys(txt);
         createButton.click();
