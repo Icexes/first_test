@@ -6,27 +6,23 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class ShowMessagePage {
-    //todo добавить модификатор
-    String title = "Show Message";
+   private final String title = "Show Message";
 
-    @FindBy(css = "a.list")
-    private WebElement listMsgButton;
+   @FindBy(css = "a.list")
+   private WebElement listMsgButton;
 
-    WebDriver driver;
+   WebDriver driver;
 
-    public ShowMessagePage(WebDriver driver)
-    {
-        PageFactory.initElements(driver,this);
-        this.driver = driver;
+   public ShowMessagePage(WebDriver driver) {
+       PageFactory.initElements(driver,this);
+       this.driver = driver;
     }
 
-    public void openMainPage()
-    {
+    public void openMainPage() {
         listMsgButton.click();
     }
 
-    public void isOpened()
-    {
+    public void isOpened() {
         Assert.assertEquals(title, driver.getTitle());
     }
 }

@@ -8,11 +8,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
 
 public class LoginTest {
-    public static WebDriver driver;
-    public static StartPage startPage;
-
-    static String head;
-    static String text;
+    private static WebDriver driver;
+    private static StartPage startPage;
+    private static String head;
+    private static String text;
 
     @BeforeClass
     public static void beforeClass() {
@@ -26,28 +25,23 @@ public class LoginTest {
     }
 
     @Test
-    public  void LoginTest() {
+    public  void loginTest() {
         String login ="admin", password = "password";
-
         LoginPage loginPage = startPage.openLoginPage();
         loginPage.isOpened();
-
         MainPage mainPage = loginPage.logIn(login, password);
         mainPage.isOpened();
-
         CreateMsgPage createMsgPage = mainPage.openCreateMsgPage();
         createMsgPage.isOpened();
         head = createMsgPage.getRandomString(5);
         text = createMsgPage.getRandomString(6);
-
         ShowMessagePage showMessagePage = createMsgPage.createMessage(head, text);
         showMessagePage.isOpened();
         showMessagePage.openMainPage();
-
         mainPage.isOpened();
         mainPage.openAllMessages();
         //todo не забывай про синтаксис, в скобках нужен пробел после запятой
-        mainPage.isMessageEntered(head,text);
+        mainPage.isMessageEntered(head, text);
 
         //todo задание
         //1. Добавить класс BasePage, который будет содержать общие для всех страниц элементы
@@ -59,9 +53,8 @@ public class LoginTest {
     @AfterClass
     public static void afterClass() {
       MainPage mainPage = new MainPage(driver);
-      //todo что за лесенка ?
-       mainPage.deleteLastMsg();
-        mainPage.isMessageDeleted(head, text);
-        mainPage.logOut();
+      mainPage.deleteLastMsg();
+      mainPage.isMessageDeleted(head, text);
+      mainPage.logOut();
     }
 }

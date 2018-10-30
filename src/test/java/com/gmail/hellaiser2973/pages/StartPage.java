@@ -7,27 +7,24 @@ import org.openqa.selenium.support.PageFactory;
 
 public class StartPage {
     //todo модификатор
-    String title = "Welcome to Grails";
+    private final String title = "Welcome to Grails";
 
     WebDriver driver;
 
     @FindBy (linkText = "qulixteachingsite.UserController")
     private WebElement link;
 
-    public StartPage(WebDriver driver)
-    {
+    public StartPage(WebDriver driver) {
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }
 
-    public LoginPage openLoginPage()
-    {
+    public LoginPage openLoginPage() {
         link.click();
         return new LoginPage(driver);
     }
 
-    public void isOpened()
-    {
+    public void isOpened() {
         Assert.assertEquals(title, driver.getTitle());
     }
 }

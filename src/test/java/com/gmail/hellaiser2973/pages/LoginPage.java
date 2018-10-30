@@ -6,9 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
-    //todo модиф
-    String title = "Login";
 
+    private final String title = "Login";
     WebDriver driver;
 
     @FindBy(id ="login")
@@ -24,14 +23,12 @@ public class LoginPage {
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }
-    //todo скобка
-    public MainPage logIn(String login, String password)
-    {
+
+    public MainPage logIn(String login, String password) {
         loginField.sendKeys(login);
         passwordField.sendKeys(password);
         loginButton.click();
         return new MainPage(driver);
-
     }
 
     public void isOpened() {

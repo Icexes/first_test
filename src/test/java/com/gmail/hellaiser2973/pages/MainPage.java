@@ -7,18 +7,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import java.util.List;
 
-
 public class MainPage {
-
-    static int numbOfRecord;                    //Переменная, указывающая номер введенной записи в таблице. Статик т.к. используется в разных методах, нужно текущее значение
-
-    String title = "Message List";
-
+    private static int numbOfRecord;      //Переменная, указывающая номер введенной записи в таблице. Статик т.к. используется в разных методах, нужно текущее значение
+    private final String  title = "Message List";
     public WebDriver driver;
-
 
     @FindBy(css = "a[href*='logout']")
     public WebElement logoutButton;
@@ -44,27 +38,22 @@ public class MainPage {
     @FindBy (css = "a.step")
     private WebElement pageButton;
 
-
     public MainPage(WebDriver driver) {
-
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
-    public CreateMsgPage openCreateMsgPage()
-    {
+    public CreateMsgPage openCreateMsgPage() {
         newmsgButton.click();
         return new CreateMsgPage(driver);
     }
 
-    public void openAllMessages()
-    {
+    public void openAllMessages() {
         if (!ch_box_AllUsers.isSelected())
         ch_box_AllUsers.click();
     }
 
-    public void isOpened()
-    {
+    public void isOpened() {
         Assert.assertEquals(title, driver.getTitle());
     }
 
@@ -86,38 +75,33 @@ public class MainPage {
 
     public boolean findMessage(String head, String text) {
         //todo переделай название этих 2ух переменных, в англ версии не понятно, что обозначают
-        int curRecord;  //текущее поле в таблице
-        int numOfPages; //текущая страница
-
-        if (isPageButtonDisplayed())       // если кнопки номера страницы есть, значит берем посл. номер страницы
-            //todo следи за выравниванием строк, лишние пробелы
-                numOfPages = Integer.parseInt(lastPage.getText());
-        else numOfPages = 1;
-
-        for (int i = 1; i <= numOfPages; i++) {
-            //todo следи за выравниваем
-            curRecord = 0;                                                      //todo  а пробел точно нужен в начале селектора?
-              List<WebElement> allHeadlines = driver.findElements(By.cssSelector(" tr td:nth-child(2)"));
-              List<WebElement> allText = driver.findElements((By.cssSelector("tr td:nth-child(3)")));
+        int currCell;  //текущее поле в таблице
+        int pageNumber; //номер страницы
+        if (isPageButtonDisplayed()) {       // если кнопки номера страницы есть, значит берем посл. номер страницы
+            pageNumber = Integer.parseInt(lastPage.getText());
+        }
+        else pageNumber = 1;
+        for (int i = 1; i <= pageNumber; i++) {
+            currCell = 0;
+            List<WebElement> allHeadlines = driver.findElements(By.cssSelector("tr td:nth-child(2)"));
+            List<WebElement> allText = driver.findElements(By.cssSelector("tr td:nth-child(3)"));
             for (WebElement column : allHeadlines) {
-                System.out.println(allText.get(curRecord).getText());
-
+                System.out.println(allText.get(currCell).getText());
                 if (column.getText().equals(head)) {
-                    if (allText.get(curRecord).getText().equals(text))
+                    if (allText.get(currCell).getText().equals(text)) {
                         System.out.println(head);
-                        MainPage.numbOfRecord = curRecord+1;
+                        MainPage.numbOfRecord = currCell + 1;
                         return true;
+                    }
                 }
-                curRecord++;
+                currCell++;
             }
-              if (i!=numOfPages)
-            nextPage.click();
+              if (i!=pageNumber) nextPage.click();
         }
         return false;
     }
-    //todo что я говорила по поводу скобок
-    public void deleteLastMsg()
-    {
+
+    public void deleteLastMsg() {
         String a = "//tbody/tr[" + MainPage.numbOfRecord + "]/td";
         WebElement dltButton = driver.findElement(By.xpath(a)).findElement(By.linkText("Delete"));
         dltButton.click();
@@ -127,11 +111,9 @@ public class MainPage {
         Assert.assertEquals(false, findMessage(head,text));
     }
 
-    public void logOut()
-    {
+    public void logOut() {
         logoutButton.click();
     }
-
 }
 
 

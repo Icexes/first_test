@@ -7,10 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.UUID;
 
 public class CreateMsgPage {
-
-    //todo добавить модификатор
-    String title = "Create Message";
-
+    private final String title = "Create Message";
     WebDriver driver;
 
     @FindBy (id ="headline")
@@ -36,8 +33,9 @@ public class CreateMsgPage {
     }
 
     public ShowMessagePage createMessage(String head, String txt) {
-        //todo лучше поля дополнительно очищать перед вводом
+        headline.clear();
         headline.sendKeys(head);
+        text.clear();
         text.sendKeys(txt);
         createButton.click();
         return new ShowMessagePage(driver);
