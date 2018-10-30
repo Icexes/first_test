@@ -1,10 +1,12 @@
 package com.gmail.hellaiser2973.tests;
+
 import com.gmail.hellaiser2973.pages.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
 import java.util.concurrent.TimeUnit;
 
 public class LoginTest {
@@ -40,8 +42,7 @@ public class LoginTest {
         showMessagePage.openMainPage();
         mainPage.isOpened();
         mainPage.openAllMessages();
-        //todo не забывай про синтаксис, в скобках нужен пробел после запятой
-        mainPage.isMessageEntered(head, text);
+        mainPage.isMessageCreated(head, text);
 
         //todo задание
         //1. Добавить класс BasePage, который будет содержать общие для всех страниц элементы

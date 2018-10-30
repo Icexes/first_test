@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 import java.util.List;
 
 public class MainPage {
@@ -57,8 +58,7 @@ public class MainPage {
         Assert.assertEquals(title, driver.getTitle());
     }
 
-    //todo подумать над названием метода
-    public void isMessageEntered(String head, String text) {
+    public void isMessageCreated(String head, String text) {
         Assert.assertEquals(true, findMessage(head,text));
     }
 
@@ -74,7 +74,6 @@ public class MainPage {
     }
 
     public boolean findMessage(String head, String text) {
-        //todo переделай название этих 2ух переменных, в англ версии не понятно, что обозначают
         int currCell;  //текущее поле в таблице
         int pageNumber; //номер страницы
         if (isPageButtonDisplayed()) {       // если кнопки номера страницы есть, значит берем посл. номер страницы

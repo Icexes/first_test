@@ -6,10 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class StartPage {
-    //todo модификатор
     private final String title = "Welcome to Grails";
-
-    WebDriver driver;
+    private WebDriver driver;
 
     @FindBy (linkText = "qulixteachingsite.UserController")
     private WebElement link;
