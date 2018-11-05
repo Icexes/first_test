@@ -60,10 +60,8 @@ public class MainPage extends BasePage {
             List<WebElement> allHeadlines = driver.findElements(By.cssSelector("tr td:nth-child(2)"));
             List<WebElement> allText = driver.findElements(By.cssSelector("tr td:nth-child(3)"));
             for (WebElement column : allHeadlines) {
-                System.out.println(allText.get(currCell).getText());
                 if (column.getText().equals(head)) {
                     if (allText.get(currCell).getText().equals(text)) {
-                        System.out.println(head);
                         MainPage.numbOfRecord = currCell + 1;
                         return true;
                     }
