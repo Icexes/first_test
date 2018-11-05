@@ -1,14 +1,12 @@
 package com.gmail.hellaiser2973.pages;
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
+public class LoginPage extends BasePage {
 
-    private final String title = "Login";
-    WebDriver driver;
+    public final String title = "Login";
 
     @FindBy(id ="login")
     private WebElement loginField;
@@ -31,7 +29,5 @@ public class LoginPage {
         return new MainPage(driver);
     }
 
-    public void isOpened() {
-        Assert.assertEquals(title, driver.getTitle());
-    }
+
 }

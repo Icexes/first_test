@@ -2,7 +2,6 @@ package com.gmail.hellaiser2973.pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,19 +9,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class MainPage {
+public class MainPage extends BasePage {
+
     private static int numbOfRecord;      //Переменная, указывающая номер введенной записи в таблице. Статик т.к. используется в разных методах, нужно текущее значение
-    private final String  title = "Message List";
-    public WebDriver driver;
-
-    @FindBy(css = "a[href*='logout']")
-    public WebElement logoutButton;
-
-    @FindBy(css = "a.create")
-    private WebElement newmsgButton;
-
-    @FindBy(css = "input[name='allUsers']")
-    private WebElement ch_box_AllUsers;
+    public final String title = "Message List";
 
     @FindBy(css = "a.nextLink")
     private WebElement nextPage;
@@ -45,38 +35,23 @@ public class MainPage {
     }
 
     public CreateMsgPage openCreateMsgPage() {
-        newmsgButton.click();
+        newMsgButton.click();
         return new CreateMsgPage(driver);
     }
 
     public void openAllMessages() {
-        if (!ch_box_AllUsers.isSelected())
-        ch_box_AllUsers.click();
-    }
-
-    public void isOpened() {
-        Assert.assertEquals(title, driver.getTitle());
+        if (!chBoxAllUsers.isSelected())
+            chBoxAllUsers.click();
     }
 
     public void isMessageCreated(String head, String text) {
         Assert.assertEquals(true, findMessage(head,text));
     }
 
-    public boolean isPageButtonDisplayed() {    //метод помогает определить кол-во страниц в табл: 1 или более.
-        //todo не стоит вставлять лишнюю обработку исключений, переделай без нее, она тут не нужна
-        try {
-            pageButton.isDisplayed();
-        }
-        catch (NoSuchElementException e) {
-            return false;
-        }
-        return true;
-    }
-
     public boolean findMessage(String head, String text) {
         int currCell;  //текущее поле в таблице
         int pageNumber; //номер страницы
-        if (isPageButtonDisplayed()) {       // если кнопки номера страницы есть, значит берем посл. номер страницы
+        if (driver.findElements(By.className("step")).size() > 0) {       // если кнопки номера страницы есть, значит берем посл. номер страницы
             pageNumber = Integer.parseInt(lastPage.getText());
         }
         else pageNumber = 1;
@@ -110,9 +85,6 @@ public class MainPage {
         Assert.assertEquals(false, findMessage(head,text));
     }
 
-    public void logOut() {
-        logoutButton.click();
-    }
 }
 
 
