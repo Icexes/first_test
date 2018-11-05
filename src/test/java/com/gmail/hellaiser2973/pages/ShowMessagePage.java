@@ -8,10 +8,10 @@ public class ShowMessagePage extends BasePage {
 
     public final String title = "Show Message";
 
-   @FindBy(css = "a.list")
-   private WebElement listMsgButton;
+    @FindBy(css = "a.list")
+    private WebElement listMsgButton;
 
-   public ShowMessagePage(WebDriver driver) {
+    public ShowMessagePage(WebDriver driver) {
        PageFactory.initElements(driver,this);
        this.driver = driver;
     }
