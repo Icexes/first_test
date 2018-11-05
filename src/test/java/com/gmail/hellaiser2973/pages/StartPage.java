@@ -6,6 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class StartPage extends BasePage {
 
+    //todo сделать все такие переменные статичнымми, обговаривали
     public final String title = "Welcome to Grails";
 
     @FindBy (linkText = "qulixteachingsite.UserController")

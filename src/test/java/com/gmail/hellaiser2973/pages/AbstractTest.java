@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import utils.ConfigProperties;
 
 import java.util.concurrent.TimeUnit;
-
+//todo почему не абстрактный
 public class AbstractTest {
 
     protected static String head;
@@ -26,6 +26,7 @@ public class AbstractTest {
         startPage = new StartPage(driver);
     }
 
+    //todo этот метод относится к странице, а не к тесту.
     public void isOpened(String title) {
         Assert.assertEquals(title, driver.getTitle());
     }

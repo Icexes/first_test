@@ -11,7 +11,10 @@ import java.util.List;
 
 public class MainPage extends BasePage {
 
-    private static int numbOfRecord;      //Переменная, указывающая номер введенной записи в таблице. Статик т.к. используется в разных методах, нужно текущее значение
+    //todo с чего вдруг статик?
+    private static int numbOfRecord;
+
+    //todo не хватает статика
     public final String title = "Message List";
 
     @FindBy(css = "a.nextLink")
@@ -34,6 +37,7 @@ public class MainPage extends BasePage {
         this.driver = driver;
     }
 
+    //todo убрать подобные методы в бейс пейдж
     public CreateMsgPage openCreateMsgPage() {
         newMsgButton.click();
         return new CreateMsgPage(driver);
@@ -60,14 +64,19 @@ public class MainPage extends BasePage {
             List<WebElement> allHeadlines = driver.findElements(By.cssSelector("tr td:nth-child(2)"));
             List<WebElement> allText = driver.findElements(By.cssSelector("tr td:nth-child(3)"));
             for (WebElement column : allHeadlines) {
+                //todo зачем выводить?
+                System.out.println(allText.get(currCell).getText());
                 if (column.getText().equals(head)) {
                     if (allText.get(currCell).getText().equals(text)) {
+                        //todo зачем выводить?
+                        System.out.println(head);
                         MainPage.numbOfRecord = currCell + 1;
                         return true;
                     }
                 }
                 currCell++;
             }
+            //todo если ты поставишь в for ограничение i < pageNumber, то тебе этот if ниже не  понадобится
               if (i!=pageNumber) nextPage.click();
         }
         return false;

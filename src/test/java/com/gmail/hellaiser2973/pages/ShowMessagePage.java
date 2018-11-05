@@ -18,6 +18,7 @@ public class ShowMessagePage extends BasePage {
 
     public void openMainPage() {
         listMsgButton.click();
+        //todo метод должен возвращать страницу
     }
 }
 
