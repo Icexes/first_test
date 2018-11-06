@@ -17,10 +17,10 @@ public class LoginTest extends AbstractTest {
         text = createMsgPage.getRandomString(6);
         ShowMessagePage showMessagePage = createMsgPage.createMessage(head, text);
         showMessagePage.isOpened(ShowMessagePage.title);
-        MainPage mainPage1 = showMessagePage.openMainPage();
-        mainPage1.isOpened(MainPage.title);
-        mainPage1.openAllMessages();
-        mainPage1.isMessageCreated(head, text);
+        mainPage = showMessagePage.openMainPage();
+        mainPage.isOpened(MainPage.title);
+        mainPage.openAllMessages();
+        mainPage.isMessageCreated(head, text);
         //todo задание
         //1. исправить замечания
         //2. понять, для чего BasePage
