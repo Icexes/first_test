@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class CreateMsgPage extends BasePage {
 
-    public final String title = "Create Message";
+    public static final String title = "Create Message";
 
     @FindBy (id ="headline")
     private WebElement headline;
@@ -20,7 +20,7 @@ public class CreateMsgPage extends BasePage {
     @FindBy (id = "create")
     private WebElement createButton;
 
-    public CreateMsgPage(WebDriver driver) {
+    CreateMsgPage(WebDriver driver) {
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }

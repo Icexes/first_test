@@ -6,7 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends BasePage {
 
-    public final String title = "Login";
+    public static final String title = "Login";
 
     @FindBy(id ="login")
     private WebElement loginField;
@@ -17,7 +17,7 @@ public class LoginPage extends BasePage {
     @FindBy(className = "save")
     private WebElement loginButton;
 
-    public LoginPage(WebDriver driver) {
+    LoginPage(WebDriver driver) {
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }

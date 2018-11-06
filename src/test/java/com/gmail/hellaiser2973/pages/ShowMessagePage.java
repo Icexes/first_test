@@ -6,19 +6,19 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ShowMessagePage extends BasePage {
 
-    public final String title = "Show Message";
+    public static final String title = "Show Message";
 
     @FindBy(css = "a.list")
     private WebElement listMsgButton;
 
-    public ShowMessagePage(WebDriver driver) {
+    ShowMessagePage(WebDriver driver) {
        PageFactory.initElements(driver,this);
        this.driver = driver;
     }
 
-    public void openMainPage() {
+    public MainPage openMainPage() {
         listMsgButton.click();
-        //todo метод должен возвращать страницу
+        return new MainPage(driver);
     }
 }
 

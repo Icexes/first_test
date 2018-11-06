@@ -11,11 +11,9 @@ import java.util.List;
 
 public class MainPage extends BasePage {
 
-    //todo с чего вдруг статик?
     private static int numbOfRecord;
 
-    //todo не хватает статика
-    public final String title = "Message List";
+    public static final String title = "Message List";
 
     @FindBy(css = "a.nextLink")
     private WebElement nextPage;
@@ -32,27 +30,16 @@ public class MainPage extends BasePage {
     @FindBy (css = "a.step")
     private WebElement pageButton;
 
-    public MainPage(WebDriver driver) {
+    MainPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
-    //todo убрать подобные методы в бейс пейдж
-    public CreateMsgPage openCreateMsgPage() {
-        newMsgButton.click();
-        return new CreateMsgPage(driver);
-    }
-
-    public void openAllMessages() {
-        if (!chBoxAllUsers.isSelected())
-            chBoxAllUsers.click();
-    }
-
     public void isMessageCreated(String head, String text) {
-        Assert.assertEquals(true, findMessage(head,text));
+        Assert.assertTrue(findMessage(head, text));
     }
 
-    public boolean findMessage(String head, String text) {
+    private boolean findMessage(String head, String text) {
         int currCell;  //текущее поле в таблице
         int pageNumber; //номер страницы
         if (driver.findElements(By.className("step")).size() > 0) {       // если кнопки номера страницы есть, значит берем посл. номер страницы
@@ -64,34 +51,28 @@ public class MainPage extends BasePage {
             List<WebElement> allHeadlines = driver.findElements(By.cssSelector("tr td:nth-child(2)"));
             List<WebElement> allText = driver.findElements(By.cssSelector("tr td:nth-child(3)"));
             for (WebElement column : allHeadlines) {
-                //todo зачем выводить?
-                System.out.println(allText.get(currCell).getText());
                 if (column.getText().equals(head)) {
                     if (allText.get(currCell).getText().equals(text)) {
-                        //todo зачем выводить?
-                        System.out.println(head);
                         MainPage.numbOfRecord = currCell + 1;
                         return true;
                     }
                 }
                 currCell++;
             }
-            //todo если ты поставишь в for ограничение i < pageNumber, то тебе этот if ниже не  понадобится
-              if (i!=pageNumber) nextPage.click();
+            if (i != pageNumber) nextPage.click();
         }
         return false;
     }
 
-    public void deleteLastMsg() {
+    void deleteLastMsg() {
         String a = "//tbody/tr[" + MainPage.numbOfRecord + "]/td";
         WebElement dltButton = driver.findElement(By.xpath(a)).findElement(By.linkText("Delete"));
         dltButton.click();
     }
 
-    public void isMessageDeleted(String head, String text) {
-        Assert.assertEquals(false, findMessage(head,text));
+    void isMessageDeleted(String head, String text) {
+        Assert.assertFalse(findMessage(head, text));
     }
-
 }
 
 
