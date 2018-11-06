@@ -22,7 +22,6 @@ public class LoginTest extends AbstractTest {
         mainPage.openAllMessages();
         mainPage.isMessageCreated(head, text);
         //todo задание
-        //1. исправить замечания
-        //2. понять, для чего BasePage
+        //Реализовать алгоритм поиска сообщения в списке с помощью интерфейсов ITable, ITableCriterion
     }
 }

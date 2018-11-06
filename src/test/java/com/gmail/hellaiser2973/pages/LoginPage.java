@@ -6,6 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends BasePage {
 
+    //todo название константных переменных пишется капсом
     public static final String title = "Login";
 
     @FindBy(id ="login")
