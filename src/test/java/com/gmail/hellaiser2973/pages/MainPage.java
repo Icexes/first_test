@@ -1,5 +1,7 @@
 package com.gmail.hellaiser2973.pages;
 
+import com.gmail.hellaiser2973.ui.tables.ITable;
+import com.gmail.hellaiser2973.ui.tables.ITableCriterion;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,11 +11,16 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class MainPage extends BasePage {
+public class MainPage extends BasePage implements ITable {
 
     private static int numbOfRecord;
 
-    public static final String title = "Message List";
+    public static final String TITLE = "Message List";
+
+    ITableCriterion rowCriterion = new FindMessages(head, text);
+
+    // @FindBy (tagName = "tbody")
+    // private WebElement table;
 
     @FindBy(css = "a.nextLink")
     private WebElement nextPage;
@@ -73,6 +80,27 @@ public class MainPage extends BasePage {
     void isMessageDeleted(String head, String text) {
         Assert.assertFalse(findMessage(head, text));
     }
+
+    List<WebElement> allData = driver.findElements(By.cssSelector("tbody tr"));
+    int counter = 0;
+
+    public boolean rowExists(ITableCriterion rowCriterion) {
+        for (WebElement column : allData) {
+            if (rowCriterion.matches(column)) {
+                return true;
+            }
+            counter++;
+        }
+        return false;
+    }
+
+    public WebElement getRowOnThisPage(ITableCriterion rowCriterion) {
+        WebElement currentRow = allData.get(counter);
+        return currentRow;
+    }
+
+
 }
+
 
 
