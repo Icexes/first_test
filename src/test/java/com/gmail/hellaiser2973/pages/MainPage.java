@@ -14,27 +14,16 @@ import java.util.List;
 public class MainPage extends BasePage implements ITable {
 
     private static int numbOfRecord;
-
     public static final String TITLE = "Message List";
-
-    ITableCriterion rowCriterion = new FindMessages(head, text);
-
-    // @FindBy (tagName = "tbody")
-    // private WebElement table;
-
     @FindBy(css = "a.nextLink")
     private WebElement nextPage;
-
     @FindBy(xpath = "//tbody//tr[last()]/td[2]")
     private WebElement inpHeadline;
-
     @FindBy(xpath = "//tbody//tr[last()]/td[3]")
     private WebElement inpText;
-
     @FindBy(xpath = "//div[@class='paginateButtons']/a[last()-1]")
     private WebElement lastPage;
-
-    @FindBy (css = "a.step")
+    @FindBy(css = "a.step")
     private WebElement pageButton;
 
     MainPage(WebDriver driver) {
@@ -42,17 +31,86 @@ public class MainPage extends BasePage implements ITable {
         this.driver = driver;
     }
 
-    public void isMessageCreated(String head, String text) {
-        Assert.assertTrue(findMessage(head, text));
+    int counter = 0;
+
+    WebElement all;
+
+    public boolean rowExistsOnThisPage(ITableCriterion rowCriterion) {
+        List<WebElement> allData = driver.findElements(By.xpath("//tbody//tr"));
+        for (WebElement column : allData) {
+            if (rowCriterion.matches(column)) {
+                all = column;
+                return true;
+            }
+            counter++;
+        }
+        return false;
     }
+
+    public boolean rowExists(ITableCriterion rowCriterion) {
+
+        int pageNumber;
+
+        if (driver.findElements(By.className("step")).size() > 0) {       // если кнопки номера страницы есть, значит берем посл. номер страницы
+            pageNumber = Integer.parseInt(lastPage.getText());
+        } else pageNumber = 1;
+        for (int i = 1; i <= pageNumber; i++) {
+            if (rowExistsOnThisPage(rowCriterion)) {
+                return true;
+            }
+            if (i != pageNumber) nextPage.click();
+        }
+        return false;
+    }
+
+    public WebElement getRow(ITableCriterion rowCriterion) {
+        Assert.assertTrue(rowExists(rowCriterion));
+        return all;
+
+
+    }
+
+    public WebElement getRowOnThisPage(ITableCriterion rowCriterion) {
+        Assert.assertTrue(rowExistsOnThisPage(rowCriterion));
+        return all;
+    }
+
+    public void isMessageCreated(String head, String text) {
+        FindMessages rowCriterion = new FindMessages(head, text);
+        Assert.assertTrue(rowExists(rowCriterion));
+    }
+
+
+    //  public void isMessageCreated() {
+    //     Assert.assertTrue(findMessage(head, text));
+    // }
+
+
+//предусмотреть чтобы при переходам по страницам сначала открывалась первая стр
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private boolean findMessage(String head, String text) {
         int currCell;  //текущее поле в таблице
         int pageNumber; //номер страницы
         if (driver.findElements(By.className("step")).size() > 0) {       // если кнопки номера страницы есть, значит берем посл. номер страницы
             pageNumber = Integer.parseInt(lastPage.getText());
-        }
-        else pageNumber = 1;
+        } else pageNumber = 1;
         for (int i = 1; i <= pageNumber; i++) {
             currCell = 0;
             List<WebElement> allHeadlines = driver.findElements(By.cssSelector("tr td:nth-child(2)"));
@@ -80,27 +138,6 @@ public class MainPage extends BasePage implements ITable {
     void isMessageDeleted(String head, String text) {
         Assert.assertFalse(findMessage(head, text));
     }
-
-    List<WebElement> allData = driver.findElements(By.cssSelector("tbody tr"));
-    int counter = 0;
-
-    public boolean rowExists(ITableCriterion rowCriterion) {
-        for (WebElement column : allData) {
-            if (rowCriterion.matches(column)) {
-                return true;
-            }
-            counter++;
-        }
-        return false;
-    }
-
-    public WebElement getRowOnThisPage(ITableCriterion rowCriterion) {
-        WebElement currentRow = allData.get(counter);
-        return currentRow;
-    }
-
-
 }
-
 
 
