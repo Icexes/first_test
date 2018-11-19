@@ -16,8 +16,4 @@ public interface ITableCriterion {
      */
 
     boolean matches(WebElement rowElement);
-
-
-
-
 }

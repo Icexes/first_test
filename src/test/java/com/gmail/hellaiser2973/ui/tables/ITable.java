@@ -24,5 +24,5 @@ public interface ITable {
 
     WebElement getRowOnThisPage(ITableCriterion rowCriterion);
 
-    WebElement getRow(ITableCriterion rowCriterion);
+    //  WebElement getRow(ITableCriterion rowCriterion);
 }
