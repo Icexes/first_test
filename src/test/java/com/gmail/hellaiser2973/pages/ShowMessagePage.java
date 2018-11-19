@@ -6,7 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ShowMessagePage extends BasePage {
 
-    public static final String title = "Show Message";
+    public static final String TITLE = "Show Message";
 
     @FindBy(css = "a.list")
     private WebElement listMsgButton;

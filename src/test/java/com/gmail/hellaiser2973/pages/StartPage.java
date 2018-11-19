@@ -6,7 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class StartPage extends BasePage {
 
-    static final String title = "Welcome to Grails";
+    static final String TITLE = "Welcome to Grails";
 
     @FindBy (linkText = "qulixteachingsite.UserController")
     private WebElement link;
