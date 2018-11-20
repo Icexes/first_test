@@ -16,7 +16,7 @@ public class FindMessages implements ITableCriterion {
     public boolean matches(WebElement rowElement) {
         WebElement headCell = rowElement.findElement(By.cssSelector("td:nth-child(2)"));
         WebElement textCell = rowElement.findElement((By.cssSelector("td:nth-child(3)")));
-        boolean t = headCell.getText().equals(head) && textCell.getText().equals(text);
-        return t;
+        return headCell.getText().equals(head) && textCell.getText().equals(text);
+
     }
 }

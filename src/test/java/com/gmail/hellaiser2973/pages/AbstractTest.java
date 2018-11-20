@@ -14,7 +14,6 @@ public abstract class AbstractTest {
     protected static String text;
     private static WebDriver driver;
     protected static StartPage startPage;
-    // protected FindMessages rowCriterion = new FindMessages(head, text);
 
     protected String getAdminLogin() {
         return ConfigProperties.getTestProperty("login");
@@ -38,8 +37,7 @@ public abstract class AbstractTest {
     @AfterClass
     public static void afterClass() {
         MainPage mainPage = new MainPage(driver);
-        //  mainPage.deleteLastMsg();
-        //  mainPage.isMessageDeleted(head, text);
+       mainPage.deleteLastMessage(head, text);
         mainPage.logOut();
     }
 }

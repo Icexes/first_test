@@ -8,19 +8,20 @@ public class LoginTest extends AbstractTest {
     public  void loginTest() {
 
         LoginPage loginPage = startPage.openLoginPage();
-        loginPage.isOpened(LoginPage.title);
+        loginPage.isOpened(LoginPage.TITLE);
         MainPage mainPage = loginPage.logIn(getAdminLogin(), getAdminPassword());
-        mainPage.isOpened(MainPage.title);
+        mainPage.isOpened(MainPage.TITLE);
         CreateMsgPage createMsgPage = mainPage.openCreateMsgPage();
-        createMsgPage.isOpened(CreateMsgPage.title);
+        createMsgPage.isOpened(CreateMsgPage.TITLE);
         head = createMsgPage.getRandomString(5);
         text = createMsgPage.getRandomString(6);
         ShowMessagePage showMessagePage = createMsgPage.createMessage(head, text);
-        showMessagePage.isOpened(ShowMessagePage.title);
+        showMessagePage.isOpened(ShowMessagePage.TITLE);
         mainPage = showMessagePage.openMainPage();
-        mainPage.isOpened(MainPage.title);
+        mainPage.isOpened(MainPage.TITLE);
         mainPage.openAllMessages();
         mainPage.isMessageCreated(head, text);
+       // mainPage.deleteLastMessage(head, text);
         //todo задание
         //Реализовать алгоритм поиска сообщения в списке с помощью интерфейсов ITable, ITableCriterion
     }
