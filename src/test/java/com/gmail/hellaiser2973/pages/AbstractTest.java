@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractTest {
 
-    protected static String head;
-    protected static String text;
+    protected static String HEAD;
+    protected static String TEXT;
     private static WebDriver driver;
     protected static StartPage startPage;
 
@@ -37,7 +37,7 @@ public abstract class AbstractTest {
     @AfterClass
     public static void afterClass() {
         MainPage mainPage = new MainPage(driver);
-       mainPage.deleteLastMessage(head, text);
+        mainPage.deleteLastMessage(HEAD, TEXT);
         mainPage.logOut();
     }
 }

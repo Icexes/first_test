@@ -1,14 +1,7 @@
 package com.gmail.hellaiser2973.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import java.util.List;
-
 public class UselessThings {
 /*
-
-
     private boolean findMessage(String head, String text) {
         int currCell;  //текущее поле в таблице
         int pageNumber; //номер страницы
