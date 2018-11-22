@@ -15,6 +15,7 @@ public class MainPage extends BasePage implements ITable {
 
     private static int numbOfRecord;
     public static final String TITLE = "Message List";
+
     @FindBy(css = "a.nextLink")
     private WebElement nextPage;
     @FindBy(xpath = "//tbody//tr[last()]/td[2]")

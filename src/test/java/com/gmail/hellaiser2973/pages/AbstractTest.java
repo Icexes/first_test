@@ -1,9 +1,9 @@
 package com.gmail.hellaiser2973.pages;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import utils.ConfigProperties;
 
 import java.util.concurrent.TimeUnit;
@@ -23,7 +23,7 @@ public abstract class AbstractTest {
         return ConfigProperties.getTestProperty("password");
     }
 
-    @BeforeClass
+    @BeforeMethod
     public static void beforeClass() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
@@ -34,7 +34,7 @@ public abstract class AbstractTest {
         startPage.isOpened(StartPage.TITLE);
     }
 
-    @AfterClass
+    @AfterMethod
     public static void afterClass() {
         MainPage mainPage = new MainPage(driver);
         mainPage.deleteLastMessage(HEAD, TEXT);
