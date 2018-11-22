@@ -9,7 +9,6 @@ import java.util.UUID;
 
 public class CreateMsgPage extends BasePage {
 
-
     public static final String TITLE = "Create Message";
 
     @FindBy (id ="headline")

@@ -31,27 +31,23 @@ public class MainPage extends BasePage implements ITable {
         this.driver = driver;
     }
 
-    int counter = 0;
-
-    WebElement all;
+    private WebElement currentRow;
 
     public boolean rowExistsOnThisPage(ITableCriterion rowCriterion) {
-        List<WebElement> allData = driver.findElements(By.xpath("//tbody//tr"));
-        for (WebElement column : allData) {
-            if (rowCriterion.matches(column)) {
-                all = column;
+        List<WebElement> tableRows = driver.findElements(By.xpath("//tbody//tr"));
+        for (WebElement row : tableRows) {
+            if (rowCriterion.matches(row)) {
+                currentRow = row;
                 return true;
             }
-            counter++;
         }
         return false;
     }
 
     public boolean rowExists(ITableCriterion rowCriterion) {
-
         int pageNumber;
 
-        if (driver.findElements(By.className("step")).size() > 0) {       // если кнопки номера страницы есть, значит берем посл. номер страницы
+        if (driver.findElements(By.className("step")).size() > 0) {
             pageNumber = Integer.parseInt(lastPage.getText());
         } else pageNumber = 1;
         for (int i = 1; i <= pageNumber; i++) {
@@ -65,14 +61,12 @@ public class MainPage extends BasePage implements ITable {
 
     public WebElement getRow(ITableCriterion rowCriterion) {
         Assert.assertTrue(rowExists(rowCriterion));
-        return all;
-
-
+        return currentRow;
     }
 
     public WebElement getRowOnThisPage(ITableCriterion rowCriterion) {
         Assert.assertTrue(rowExistsOnThisPage(rowCriterion));
-        return all;
+        return currentRow;
     }
 
     public void isMessageCreated(String head, String text) {
@@ -80,63 +74,10 @@ public class MainPage extends BasePage implements ITable {
         Assert.assertTrue(rowExists(rowCriterion));
     }
 
-
-    //  public void isMessageCreated() {
-    //     Assert.assertTrue(findMessage(head, text));
-    // }
-
-
-//предусмотреть чтобы при переходам по страницам сначала открывалась первая стр
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private boolean findMessage(String head, String text) {
-        int currCell;  //текущее поле в таблице
-        int pageNumber; //номер страницы
-        if (driver.findElements(By.className("step")).size() > 0) {       // если кнопки номера страницы есть, значит берем посл. номер страницы
-            pageNumber = Integer.parseInt(lastPage.getText());
-        } else pageNumber = 1;
-        for (int i = 1; i <= pageNumber; i++) {
-            currCell = 0;
-            List<WebElement> allHeadlines = driver.findElements(By.cssSelector("tr td:nth-child(2)"));
-            List<WebElement> allText = driver.findElements(By.cssSelector("tr td:nth-child(3)"));
-            for (WebElement column : allHeadlines) {
-                if (column.getText().equals(head)) {
-                    if (allText.get(currCell).getText().equals(text)) {
-                        MainPage.numbOfRecord = currCell + 1;
-                        return true;
-                    }
-                }
-                currCell++;
-            }
-            if (i != pageNumber) nextPage.click();
-        }
-        return false;
-    }
-
-    void deleteLastMsg() {
-        String a = "//tbody/tr[" + MainPage.numbOfRecord + "]/td";
-        WebElement dltButton = driver.findElement(By.xpath(a)).findElement(By.linkText("Delete"));
-        dltButton.click();
-    }
-
-    void isMessageDeleted(String head, String text) {
-        Assert.assertFalse(findMessage(head, text));
+    public void deleteLastMessage(String head, String text) {
+        FindMessages rowCriterion = new FindMessages(head, text);
+        WebElement row = getRowOnThisPage(rowCriterion);
+        row.findElement(By.linkText("Delete")).click();
     }
 }
 
