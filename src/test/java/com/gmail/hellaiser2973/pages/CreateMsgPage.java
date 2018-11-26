@@ -13,7 +13,7 @@ public class CreateMsgPage extends BasePage {
 
     @FindBy (id ="headline")
     private WebElement headline;
-
+    
     @FindBy (id ="text")
     private WebElement text;
 
