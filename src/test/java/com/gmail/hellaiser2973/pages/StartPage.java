@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.Log;
 
 public class StartPage extends BasePage {
 
@@ -18,6 +19,7 @@ public class StartPage extends BasePage {
 
     public LoginPage openLoginPage() {
         link.click();
+        Log.info("LoginPage opened");
         return new LoginPage(driver);
     }
 }

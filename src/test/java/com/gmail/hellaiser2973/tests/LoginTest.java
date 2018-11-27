@@ -1,12 +1,12 @@
 package com.gmail.hellaiser2973.tests;
 
 import com.gmail.hellaiser2973.pages.*;
-import org.junit.Test;
-import org.testng.ITestNGListener;
+import org.testng.annotations.Test;
+
 
 public class LoginTest extends AbstractTest {
 
-    @Test
+    @Test(testName = "Login Test")
     public  void loginTest() {
 
         LoginPage loginPage = startPage.openLoginPage();

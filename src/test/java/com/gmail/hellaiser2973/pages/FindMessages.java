@@ -3,7 +3,6 @@ package com.gmail.hellaiser2973.pages;
 import com.gmail.hellaiser2973.ui.tables.ITableCriterion;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
 public class FindMessages implements ITableCriterion {
 
     private String head, text;

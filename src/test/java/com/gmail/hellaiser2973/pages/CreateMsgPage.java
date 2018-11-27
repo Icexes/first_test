@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.Log;
 
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public class CreateMsgPage extends BasePage {
 
     @FindBy (id ="headline")
     private WebElement headline;
-    
+
     @FindBy (id ="text")
     private WebElement text;
 
@@ -39,6 +40,7 @@ public class CreateMsgPage extends BasePage {
         text.clear();
         text.sendKeys(txt);
         createButton.click();
+        Log.info("Message created");
         return new ShowMessagePage(driver);
     }
 }
