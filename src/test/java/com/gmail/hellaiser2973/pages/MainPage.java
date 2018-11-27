@@ -8,10 +8,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.Log;
 
 import java.util.List;
-
 public class MainPage extends BasePage implements ITable {
+
 
     private static int numbOfRecord;
     public static final String TITLE = "Message List";
@@ -53,6 +54,7 @@ public class MainPage extends BasePage implements ITable {
         } else pageNumber = 1;
         for (int i = 1; i <= pageNumber; i++) {
             if (rowExistsOnThisPage(rowCriterion)) {
+                Log.info("Message Found");
                 return true;
             }
             if (i != pageNumber) nextPage.click();
@@ -73,12 +75,14 @@ public class MainPage extends BasePage implements ITable {
     public void isMessageCreated(String head, String text) {
         FindMessages rowCriterion = new FindMessages(head, text);
         Assert.assertTrue(rowExists(rowCriterion));
+
     }
 
     public void deleteLastMessage(String head, String text) {
         FindMessages rowCriterion = new FindMessages(head, text);
         WebElement row = getRowOnThisPage(rowCriterion);
         row.findElement(By.linkText("Delete")).click();
+        Log.info("Message deleted.");
     }
 }
 
