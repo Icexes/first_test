@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import utils.Log;
 
 public abstract class BasePage {
 
@@ -20,9 +21,11 @@ public abstract class BasePage {
 
     public void isOpened(String title) {
         Assert.assertEquals(title, driver.getTitle());
+        Log.info("Page opened");
     }
 
     public CreateMsgPage openCreateMsgPage() {
+        Log.info("Open CreateMessagePage");
         newMsgButton.click();
         return new CreateMsgPage(driver);
     }

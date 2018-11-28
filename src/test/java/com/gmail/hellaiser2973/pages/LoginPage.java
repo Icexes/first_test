@@ -19,7 +19,6 @@ public class LoginPage extends BasePage {
     private WebElement loginButton;
 
     LoginPage(WebDriver driver) {
-
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }
@@ -29,8 +28,8 @@ public class LoginPage extends BasePage {
         Log.info("Login entered");
         passwordField.sendKeys(password);
         Log.info("Password entered");
+        Log.info("Open MainPage");
         loginButton.click();
-
         return new MainPage(driver);
     }
 

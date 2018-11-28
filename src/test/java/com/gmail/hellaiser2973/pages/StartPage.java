@@ -19,7 +19,7 @@ public class StartPage extends BasePage {
 
     public LoginPage openLoginPage() {
         link.click();
-        Log.info("LoginPage opened");
+        Log.info("Open LoginPage");
         return new LoginPage(driver);
     }
 }
