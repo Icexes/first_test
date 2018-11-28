@@ -1,10 +1,14 @@
 package com.gmail.hellaiser2973.tests;
 
 import com.gmail.hellaiser2973.pages.*;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 
 public class LoginTest extends AbstractTest {
+
+    private static String head;
+    private static String text;
 
     @Test(testName = "Login Test")
     public  void loginTest() {
@@ -18,16 +22,16 @@ public class LoginTest extends AbstractTest {
         CreateMsgPage createMsgPage = mainPage.openCreateMsgPage();
         createMsgPage.isOpened(CreateMsgPage.TITLE);
 
-        HEAD = createMsgPage.getRandomString(5);
-        TEXT = createMsgPage.getRandomString(6);
+        head = createMsgPage.getRandomString(5);
+        text = createMsgPage.getRandomString(6);
 
-        ShowMessagePage showMessagePage = createMsgPage.createMessage(HEAD, TEXT);
+        ShowMessagePage showMessagePage = createMsgPage.createMessage(head, text);
         showMessagePage.isOpened(ShowMessagePage.TITLE);
 
         mainPage = showMessagePage.openMainPage();
         mainPage.isOpened(MainPage.TITLE);
         mainPage.openAllMessages();
-        mainPage.isMessageCreated(HEAD, TEXT);
+        mainPage.verifyMessageCreated(head, text);
 
         //Perfect job, мой юный падаван!
 
@@ -42,5 +46,12 @@ public class LoginTest extends AbstractTest {
         //изучить коллекции + практически потренироваться с ними работать
 
 
+    }
+
+    @AfterMethod
+    public void customAfterMethod() {
+        MainPage mainPage = new MainPage(getDriver());
+        mainPage.deleteLastMessage(head, text);
+        mainPage.logOut();
     }
 }

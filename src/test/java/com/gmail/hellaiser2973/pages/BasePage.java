@@ -35,7 +35,7 @@ public abstract class BasePage {
             chBoxAllUsers.click();
     }
 
-    void logOut() {
+    public void logOut() {
         logoutButton.click();
     }
 }

@@ -24,10 +24,10 @@ public class LoginPage extends BasePage {
     }
 
     public MainPage logIn(String login, String password) {
+        Log.info("Enter login");
         loginField.sendKeys(login);
-        Log.info("Login entered");
+        Log.info("Enter password");
         passwordField.sendKeys(password);
-        Log.info("Password entered");
         Log.info("Open MainPage");
         loginButton.click();
         return new MainPage(driver);

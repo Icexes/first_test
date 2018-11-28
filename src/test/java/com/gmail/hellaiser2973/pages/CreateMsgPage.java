@@ -40,6 +40,7 @@ public class CreateMsgPage extends BasePage {
         text.clear();
         text.sendKeys(txt);
         createButton.click();
+        //todo переделать
         Log.info("Message created");
         Log.info("Open ShowMessagePage");
         return new ShowMessagePage(driver);

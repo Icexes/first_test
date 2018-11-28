@@ -18,8 +18,6 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractTest {
 
-    protected static String HEAD;
-    protected static String TEXT;
     private static WebDriver driver;
     protected static StartPage startPage;
 
@@ -48,7 +46,7 @@ public abstract class AbstractTest {
 
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public static void afterClass(ITestResult result) {
         if (ITestResult.FAILURE == result.getStatus()) {
             try {
@@ -68,12 +66,13 @@ public abstract class AbstractTest {
                 System.out.println("Exception while taking screenshot " + e.getMessage());
             }
 
-            MainPage mainPage = new MainPage(driver);
-            mainPage.deleteLastMessage(HEAD, TEXT);
-            mainPage.logOut();
             Log.endLog();
 
         }
+    }
+
+    protected WebDriver getDriver() {
+        return driver;
     }
 
 }

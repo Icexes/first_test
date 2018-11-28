@@ -28,7 +28,7 @@ public class MainPage extends BasePage implements ITable {
     @FindBy(css = "a.step")
     private WebElement pageButton;
 
-    MainPage(WebDriver driver) {
+    public MainPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
@@ -40,6 +40,7 @@ public class MainPage extends BasePage implements ITable {
         for (WebElement row : tableRows) {
             if (rowCriterion.matches(row)) {
                 currentRow = row;
+                Log.info("Message is found");
                 return true;
             }
         }
@@ -54,7 +55,6 @@ public class MainPage extends BasePage implements ITable {
         } else pageNumber = 1;
         for (int i = 1; i <= pageNumber; i++) {
             if (rowExistsOnThisPage(rowCriterion)) {
-                Log.info("Message Found");
                 return true;
             }
             if (i != pageNumber) nextPage.click();
@@ -72,17 +72,24 @@ public class MainPage extends BasePage implements ITable {
         return currentRow;
     }
 
-    public void isMessageCreated(String head, String text) {
+    public void verifyMessageCreated(String head, String text) {
         FindMessages rowCriterion = new FindMessages(head, text);
         Assert.assertTrue(rowExists(rowCriterion));
+    }
 
+    public boolean isMessageCreated(String head, String text) {
+        FindMessages rowCriterion = new FindMessages(head, text);
+        return rowExists(rowCriterion);
     }
 
     public void deleteLastMessage(String head, String text) {
+        Log.info("Deleting message with headline " + head + " and text " + text);
         FindMessages rowCriterion = new FindMessages(head, text);
-        WebElement row = getRowOnThisPage(rowCriterion);
-        row.findElement(By.linkText("Delete")).click();
-        Log.info("Message deleted.");
+        if (rowExists(rowCriterion)) {
+            WebElement row = getRowOnThisPage(rowCriterion);
+            row.findElement(By.linkText("Delete")).click();
+        }
+        else Log.error("Message is not found on the page");
     }
 }
 
