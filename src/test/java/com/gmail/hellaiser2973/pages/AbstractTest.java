@@ -5,6 +5,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -30,7 +31,6 @@ public abstract class AbstractTest {
         return ConfigProperties.getTestProperty("password");
     }
 
-
     @BeforeMethod
 
     public static void beforeClass(Method method) {
@@ -49,22 +49,31 @@ public abstract class AbstractTest {
     }
 
     @AfterMethod
+    public static void afterClass(ITestResult result) {
+        if (ITestResult.FAILURE == result.getStatus()) {
+            try {
+// Create refernce of TakesScreenshot
+                TakesScreenshot ts = (TakesScreenshot) driver;
 
-    public static void afterClass() {
-        public static void checkStatus (ITestResult result) throws IOException {
-            if (result.isSuccess()) {
-            } else {
+// Call method to capture screenshot
+                File source = ts.getScreenshotAs(OutputType.FILE);
 
-                File screenshot = ((TakesScreenshot) driver).
-                        getScreenshotAs(OutputType.FILE);
-                String path = "./target/screenshots/" + screenshot.getName();
-                FileUtils.copyFile(screenshot, new File(path));
+// Copy files to specific location here it will save all screenshot in our project home directory and
+// result.getName() will return name of test case so that screenshot name will be same
+                FileUtils.copyFile(source, new File("./Screenshots/" + result.getName() + ".png"));
+
+                System.out.println("Screenshot taken");
+            } catch (Exception e) {
+
+                System.out.println("Exception while taking screenshot " + e.getMessage());
             }
-        }
-        MainPage mainPage = new MainPage(driver);
-        mainPage.deleteLastMessage(HEAD, TEXT);
-        mainPage.logOut();
-        Log.endLog();
 
+            MainPage mainPage = new MainPage(driver);
+            mainPage.deleteLastMessage(HEAD, TEXT);
+            mainPage.logOut();
+            Log.endLog();
+
+        }
     }
+
 }
