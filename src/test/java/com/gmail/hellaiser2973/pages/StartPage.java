@@ -7,12 +7,12 @@ import utils.Log;
 
 public class StartPage extends BasePage {
 
-    static final String TITLE = "Welcome to Grails";
+    public static final String TITLE = "Welcome to Grails";
 
     @FindBy (linkText = "qulixteachingsite.UserController")
     private WebElement link;
 
-    StartPage(WebDriver driver) {
+    public StartPage(WebDriver driver) {
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }
