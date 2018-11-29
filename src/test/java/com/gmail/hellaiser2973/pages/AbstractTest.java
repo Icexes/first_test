@@ -31,7 +31,7 @@ public abstract class AbstractTest {
 
     @BeforeMethod
 
-    public static void beforeClass(Method method) {
+    public void beforeClass(Method method) {
         Test testAnnotation = method.getAnnotation(Test.class);
         Log.startLog(testAnnotation.testName());
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
@@ -47,7 +47,7 @@ public abstract class AbstractTest {
     }
 
     @AfterMethod(alwaysRun = true)
-    public static void afterClass(ITestResult result) {
+    public final void afterClass(ITestResult result) {
         if (ITestResult.FAILURE == result.getStatus()) {
             try {
 // Create refernce of TakesScreenshot
@@ -61,6 +61,8 @@ public abstract class AbstractTest {
                 FileUtils.copyFile(source, new File("./Screenshots/" + result.getName() + ".png"));
 
                 System.out.println("Screenshot taken");
+                customAfterMethod();
+
             } catch (Exception e) {
 
                 System.out.println("Exception while taking screenshot " + e.getMessage());
@@ -73,6 +75,10 @@ public abstract class AbstractTest {
 
     protected WebDriver getDriver() {
         return driver;
+    }
+
+    protected void customAfterMethod() {
+
     }
 
 }
